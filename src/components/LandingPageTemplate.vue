@@ -10,12 +10,6 @@
           </div>
         </div>
       </div>
-      <div class="row">
-        <div class="col-md-12">
-          <p>First Name: {{lead.firstName}}</p>
-          <p>isLeadDataComplete: {{isLeadDataComplete()}}</p>
-        </div>
-      </div>
     </div>
 </template>
 
@@ -34,12 +28,16 @@ export default {
   },
   provide: function () {
     return {
-      isLeadDataComplete: this.isLeadDataComplete
+      isLeadDataComplete: this.isLeadDataComplete,
+      submitLead: this.submitLead
     }
   },
   methods: {
     isLeadDataComplete: function () {
       return this.landingPageProcess.isLeadDataComplete(this.lead)
+    },
+    submitLead: function () {
+      this.landingPageProcess.submitLeadData(this.lead)
     }
   },
   components: {

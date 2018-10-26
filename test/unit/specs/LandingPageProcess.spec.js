@@ -1,5 +1,6 @@
 import {LandingPageConfig} from '@/js/LandingPageConfig'
 import {SimpleLeadData} from '@/js/SimpleLeadData'
+import {SubmitedLeadData} from '@/js/SubmitedLeadData'
 import {LandingPageProcess} from '@/js/LandingPageProcess'
 
 describe('Landing Page Process Test', () => {
@@ -31,6 +32,7 @@ describe('Landing Page Process Test', () => {
     expect(landingPageProcess.getNewLead() != null).toEqual(true)
     expect(typeof landingPageProcess.getNewLead().valueOf()).toEqual('object')
     expect(landingPageProcess.getNewLead() instanceof SimpleLeadData).toEqual(true)
+    expect(landingPageProcess.getNewLead() instanceof SubmitedLeadData).toEqual(true)
   })
 
   it('Given Landing Page Process class when get new lead then return a default Simple Lead Data ', () => {
@@ -41,11 +43,12 @@ describe('Landing Page Process Test', () => {
     expect(lead.company).toEqual('')
     expect(lead.title).toEqual('')
     expect(lead.email).toEqual('')
+    expect(lead.isSubmited).toEqual(false)
   })
 
   it('Given a full Lead data when check if is lead data complete then return true', () => {
     let landingPageProcess = new LandingPageProcess();
-    let lead = new SimpleLeadData();
+    let lead = new SubmitedLeadData();
     lead.firstName = 'Victor'
     lead.lastName = 'Luna'
     lead.company = 'Newtoms'
@@ -56,7 +59,7 @@ describe('Landing Page Process Test', () => {
 
   it('Given a Lead data with empty first name when check if is lead data complete then return false', () => {
     let landingPageProcess = new LandingPageProcess();
-    let lead = new SimpleLeadData();
+    let lead = new SubmitedLeadData();
     lead.firstName = ''
     lead.lastName = 'Luna'
     lead.company = 'Newtoms'
@@ -67,7 +70,7 @@ describe('Landing Page Process Test', () => {
 
   it('Given a Lead data with empty last name when check if is lead data complete then return false', () => {
     let landingPageProcess = new LandingPageProcess();
-    let lead = new SimpleLeadData();
+    let lead = new SubmitedLeadData();
     lead.firstName = 'Victor'
     lead.lastName = ''
     lead.company = 'Newtoms'
@@ -78,7 +81,7 @@ describe('Landing Page Process Test', () => {
 
   it('Given a Lead data with empty company when check if is lead data complete then return false', () => {
     let landingPageProcess = new LandingPageProcess();
-    let lead = new SimpleLeadData();
+    let lead = new SubmitedLeadData();
     lead.firstName = 'Victor'
     lead.lastName = 'Luna'
     lead.company = ''
@@ -89,7 +92,7 @@ describe('Landing Page Process Test', () => {
 
   it('Given a Lead data with empty title when check if is lead data complete then return false', () => {
     let landingPageProcess = new LandingPageProcess();
-    let lead = new SimpleLeadData();
+    let lead = new SubmitedLeadData();
     lead.firstName = 'Victor'
     lead.lastName = 'Luna'
     lead.company = 'Newtoms'
@@ -100,12 +103,25 @@ describe('Landing Page Process Test', () => {
 
   it('Given a Lead data with empty email when check if is lead data complete then return false', () => {
     let landingPageProcess = new LandingPageProcess();
-    let lead = new SimpleLeadData();
+    let lead = new SubmitedLeadData();
     lead.firstName = 'Victor'
     lead.lastName = 'Luna'
     lead.company = 'Newtoms'
     lead.title = 'Developer'
     lead.email = ''
     expect(landingPageProcess.isLeadDataComplete(lead)).toEqual(false)
+  })
+
+  it('Given a Lead data when submit Lead Data then return lead as submited', () => {
+    let landingPageProcess = new LandingPageProcess();
+    let lead = new SubmitedLeadData();
+    lead.firstName = 'Victor'
+    lead.lastName = 'Luna'
+    lead.company = 'Newtoms'
+    lead.title = 'Developer'
+    lead.email = 'victor.luna@newtoms.com'
+    lead.isSubmited = false
+    landingPageProcess.submitLeadData(lead)
+    expect(lead.isSubmited).toEqual(true)
   })
 })

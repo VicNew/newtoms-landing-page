@@ -1,5 +1,5 @@
 import {LandingPageConfig} from './LandingPageConfig'
-import {SimpleLeadData} from './SimpleLeadData'
+import {SubmitedLeadData} from './SubmitedLeadData'
 import {Util} from './Util'
 export class LandingPageProcess {
   getPageConfiguration () {
@@ -13,11 +13,17 @@ export class LandingPageProcess {
   }
 
   getNewLead () {
-    return new SimpleLeadData()
+    return new SubmitedLeadData()
   }
 
   isLeadDataComplete (lead) {
     return (lead != null && this.isNotEmptyValue(lead.firstName) && this.isNotEmptyValue(lead.lastName) && this.isNotEmptyValue(lead.company) && this.isNotEmptyValue(lead.title) && this.isNotEmptyValue(lead.email))
+  }
+
+  submitLeadData (lead) {
+    console.info('Submiting lead: ' + lead)
+    console.info('Successfully!')
+    lead.isSubmited = true
   }
 
   isNotEmptyValue (value) {
