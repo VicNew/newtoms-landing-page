@@ -1,5 +1,5 @@
 <template>
-    <section>
+    <section style="font-family: 'Ubuntu Condensed', sans-serif !important; font-size: 20px !important;">
         <div class="form-row">
             <div class="col-md-6 col-lg-6 col-xl-6">
                 <div class="form-group">
