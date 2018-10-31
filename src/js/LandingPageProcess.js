@@ -1,15 +1,15 @@
 import {LandingPageConfig} from './LandingPageConfig'
 import {SubmitedLeadData} from './SubmitedLeadData'
 import {Util} from './Util'
+
 export class LandingPageProcess {
+  constructor (landingPageRestClient, landingPageConfigMapper) {
+    this.landingPageRestClient = landingPageRestClient
+    this.landingPageConfigMapper = landingPageConfigMapper
+  }
+
   getPageConfiguration () {
-    var pageConfig = new LandingPageConfig()
-    pageConfig.documentId = 1
-    pageConfig.documentType = 'Whitepaper'
-    pageConfig.documentTitle = 'Best practices for microservices'
-    pageConfig.documentDescription = 'Today\'s business environment is extraordinarily competitive. No company – no matter its size or what industry it is in – is safe from disruption. To mitigate this risk, it\'s important to consider implementing microservices best practices in order to change quickly, innovate easily, and meet competition wherever it arises.'
-    pageConfig.documentUrl = 'https://www.mulesoft.com/sites/default/files/resource-assets/wp_Best%20Practices%20for%20Microservices%20Whitepaper%20Research.pdf'
-    return pageConfig
+    return this.transformTemplateConfigResponse(this.getLandingPageTemplateConfig())
   }
 
   getNewLead () {
@@ -28,5 +28,17 @@ export class LandingPageProcess {
 
   isNotEmptyValue (value) {
     return !Util.isEmptyString(value)
+  }
+
+  transformTemplateConfigResponse(response) {
+    return this.getlandingPageConfigMapper().transformTemplateConfigResponse(response)
+  }
+
+  getLandingPageTemplateConfig () {
+    return this.landingPageRestClient.getLandingPageTemplateConfigById(1)
+  }
+
+  getlandingPageConfigMapper () {
+    return this.landingPageConfigMapper
   }
 }
