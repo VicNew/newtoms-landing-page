@@ -4,23 +4,19 @@ import {LandingPageRestClientWithErrorHandler} from './LandingPageRestClientWith
 import {LandingPageConfigMapper} from './LandingPageConfigMapper'
 
 export class LandingPageFactory {
-    constructor () {
+  getLandingPageRestApiBaseUrl () {
+    return AppConfig.landingPageRestClient.baseUrl
+  }
 
-    }
+  getLandingPageRestClient () {
+    return new LandingPageRestClientWithErrorHandler(this.getLandingPageRestApiBaseUrl())
+  }
 
-    getLandingPageRestApiBaseUrl () {
-        return AppConfig.landingPageRestClient.baseUrl
-    }
+  getLandingPageProcess () {
+    return new LandingPageProcess(this.getLandingPageRestClient(), this.getLandingPageConfigMapper())
+  }
 
-    getLandingPageRestClient() {
-        return new LandingPageRestClientWithErrorHandler(this.getLandingPageRestApiBaseUrl(), this.getLandingPageConfigMapper())
-    }
-
-    getLandingPageProcess () {
-        return new LandingPageProcess()
-    }
-
-    getLandingPageConfigMapper () {
-        return new LandingPageConfigMapper()
-    }
+  getLandingPageConfigMapper () {
+    return new LandingPageConfigMapper()
+  }
 }

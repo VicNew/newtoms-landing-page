@@ -1,42 +1,41 @@
 export class LandingPageSimpleRestClient {
-    constructor (baseUrl) {
-        this.baseUrl = baseUrl
-        this.resource = '/landingpage/template/'
-    }
+  constructor (baseUrl) {
+    this.baseUrl = baseUrl
+    this.resource = '/landingpage/template/'
+  }
 
-    getLandingPageTemplateConfigById(id) {
-        var requestClient = this.getHttpRequestClient()
-        this.sendSyncGetRequest(requestClient, this.getCompleteServiceUrl(this.resource + id))
-        return this.getResponse(requestClient)
-    }
+  getLandingPageTemplateConfigById (id) {
+    var requestClient = this.getHttpRequestClient()
+    this.sendSyncGetRequest(requestClient, this.getCompleteServiceUrl(this.resource + id))
+    return this.getResponse(requestClient)
+  }
 
-    getCompleteServiceUrl (resourcePath) {
-        return this.getBaseUrl() + resourcePath
-    }
+  getCompleteServiceUrl (resourcePath) {
+    return this.getBaseUrl() + resourcePath
+  }
 
-    getBaseUrl () {
-        return this.baseUrl
-    }
-    
-    transformJsonStringFormatToObject (jsonText) {
-        return JSON.parse(jsonText)
-    }
+  getBaseUrl () {
+    return this.baseUrl
+  }
 
-    getHttpRequestClient () {
-        return new XMLHttpRequest()
-    }
+  transformJsonStringFormatToObject (jsonText) {
+    return JSON.parse(jsonText)
+  }
 
-    sendSyncGetRequest (client, serviceUrl) {
-        client.open('GET', serviceUrl, false)
-        client.send(null)
-    }
+  getHttpRequestClient () {
+    return new XMLHttpRequest()
+  }
 
-    getTextResponse (client) {
-        return client.responseText
-    }
+  sendSyncGetRequest (client, serviceUrl) {
+    client.open('GET', serviceUrl, false)
+    client.send(null)
+  }
 
-    getResponse (client) {
-        return this.transformJsonStringFormatToObject(this.getTextResponse(client))
-    }
+  getTextResponse (client) {
+    return client.responseText
+  }
 
+  getResponse (client) {
+    return this.transformJsonStringFormatToObject(this.getTextResponse(client))
+  }
 }

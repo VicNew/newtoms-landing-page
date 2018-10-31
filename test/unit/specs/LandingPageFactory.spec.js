@@ -33,14 +33,6 @@ describe('Landing Page Factory', () => {
         expect(landingPageFactorySpy.getLandingPageRestApiBaseUrl).toHaveBeenCalled()
     })
 
-    it('Given a Landing Page Factory when get Landing Page Rest Client then use the right mapper', () => {
-        let landingPageFactorySpy = new LandingPageFactory()
-        spyOn(landingPageFactorySpy, 'getLandingPageConfigMapper').and.callThrough()
-        let restClient = landingPageFactorySpy.getLandingPageRestClient()
-        expect(restClient).not.toBe(null)
-        expect(landingPageFactorySpy.getLandingPageConfigMapper).toHaveBeenCalled()
-    })
-
     it('Given a Landing Page Factory when get Landing Page Process class then return the right instance', () => {
         expect(landingPageFactory.getLandingPageProcess()).not.toBe(null)
         expect(landingPageFactory.getLandingPageProcess() instanceof Object).toBeTruthy()
@@ -51,6 +43,22 @@ describe('Landing Page Factory', () => {
         expect(landingPageFactory.getLandingPageConfigMapper()).not.toBe(null)
         expect(landingPageFactory.getLandingPageConfigMapper() instanceof Object).toBeTruthy()
         expect(landingPageFactory.getLandingPageConfigMapper() instanceof LandingPageConfigMapper).toBeTruthy()
+    })
+
+    it('Given a Landing Page Factory when get Landing Page Process class then use the right Rest Client', () => {
+        let landingPageFactorySpy = new LandingPageFactory()
+        spyOn(landingPageFactorySpy, 'getLandingPageRestClient').and.callThrough()
+        let process = landingPageFactorySpy.getLandingPageProcess()
+        expect(process).not.toBe(null)
+        expect(landingPageFactorySpy.getLandingPageRestClient).toHaveBeenCalled()
+    })
+
+    it('Given a Landing Page Factory when get Landing Page Process class then use the right Mapper', () => {
+        let landingPageFactorySpy = new LandingPageFactory()
+        spyOn(landingPageFactorySpy, 'getLandingPageConfigMapper').and.callThrough()
+        let process = landingPageFactorySpy.getLandingPageProcess()
+        expect(process).not.toBe(null)
+        expect(landingPageFactorySpy.getLandingPageConfigMapper).toHaveBeenCalled()
     })
 
 })

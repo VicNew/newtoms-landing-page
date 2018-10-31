@@ -14,7 +14,7 @@
 </template>
 
 <script>
-import {LandingPageProcess} from '../js/LandingPageProcess'
+import {LandingPageFactory} from '../js/LandingPageFactory'
 import DocumentInfoTemplate from './DocumentInfoTemplate.vue'
 import SimpleLeadRegisterTemplate from './SimpleLeadRegisterTemplate.vue'
 export default {
@@ -23,7 +23,8 @@ export default {
     return {
       config: {},
       lead: {},
-      landingPageProcess: {}
+      landingPageProcess: {},
+      landingPageFactory: {}
     }
   },
   provide: function () {
@@ -45,7 +46,8 @@ export default {
     appSimpleLeadRegisterTemplate: SimpleLeadRegisterTemplate
   },
   created () {
-    this.landingPageProcess = new LandingPageProcess()
+    this.landingPageFactory = new LandingPageFactory()
+    this.landingPageProcess = this.landingPageFactory.getLandingPageProcess()
     this.config = this.landingPageProcess.getPageConfiguration()
     this.lead = this.landingPageProcess.getNewLead()
   }

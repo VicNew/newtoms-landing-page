@@ -1,4 +1,3 @@
-import {LandingPageConfig} from './LandingPageConfig'
 import {SubmitedLeadData} from './SubmitedLeadData'
 import {Util} from './Util'
 
@@ -30,7 +29,7 @@ export class LandingPageProcess {
     return !Util.isEmptyString(value)
   }
 
-  transformTemplateConfigResponse(response) {
+  transformTemplateConfigResponse (response) {
     return this.getlandingPageConfigMapper().transformTemplateConfigResponse(response)
   }
 
