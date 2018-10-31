@@ -1,6 +1,7 @@
 import {AppConfig} from './LandingPageAppConfig'
 import {LandingPageProcess} from './LandingPageProcess'
 import {LandingPageRestClientWithErrorHandler} from './LandingPageRestClientWithErrorHandler'
+import {LandingPageLeadRestClient} from './LandingPageLeadRestClient'
 import {LandingPageConfigMapper} from './LandingPageConfigMapper'
 
 export class LandingPageFactory {
@@ -13,10 +14,14 @@ export class LandingPageFactory {
   }
 
   getLandingPageProcess () {
-    return new LandingPageProcess(this.getLandingPageRestClient(), this.getLandingPageConfigMapper())
+    return new LandingPageProcess(this.getLandingPageRestClient(), this.getLandingPageLeadRestClient(), this.getLandingPageConfigMapper())
   }
 
   getLandingPageConfigMapper () {
     return new LandingPageConfigMapper()
+  }
+
+  getLandingPageLeadRestClient () {
+    return new LandingPageLeadRestClient(this.getLandingPageRestApiBaseUrl())
   }
 }

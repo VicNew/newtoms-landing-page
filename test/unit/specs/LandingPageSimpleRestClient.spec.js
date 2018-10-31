@@ -1,4 +1,5 @@
 import {LandingPageSimpleRestClient} from '@/js/LandingPageSimpleRestClient'
+import {XMLHttpRequestMock} from './XMLHttpRequestMock.spec'
 
 describe('Landing Page Simple Rest Client', () => {
     var restClient
@@ -78,21 +79,6 @@ let mockResponseJsonText = '   {  '  +
 '      "documentDescription":"Today\'s business environment is extraordinarily competitive. No company – no matter its size or what industry it is in – is safe from disruption. To mitigate this risk, it\'s important to consider implementing microservices best practices in order to change quickly, innovate easily, and meet competition wherever it arises.",  '  + 
 '      "documentUrl":"https://www.mulesoft.com/sites/default/files/resource-assets/wp_Best%20Practices%20for%20Microservices%20Whitepaper%20Research.pdf"  '  + 
 '  }  '
-
-class XMLHttpRequestMock {
-    constructor () {
-        this.responseText
-        this.status = 200
-    }
-
-    open(method, serviceUrl, aSync) {
-
-    }
-    
-    send(body) {
-
-    }
-}
 
 function getMockedXMLHttpRequestMock () {
     var mockXMLHttpRequest = new XMLHttpRequestMock()

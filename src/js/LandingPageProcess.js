@@ -2,8 +2,9 @@ import {SubmitedLeadData} from './SubmitedLeadData'
 import {Util} from './Util'
 
 export class LandingPageProcess {
-  constructor (landingPageRestClient, landingPageConfigMapper) {
+  constructor (landingPageRestClient, landingPageLeadRestClient, landingPageConfigMapper) {
     this.landingPageRestClient = landingPageRestClient
+    this.landingPageLeadRestClient = landingPageLeadRestClient
     this.landingPageConfigMapper = landingPageConfigMapper
   }
 
@@ -20,8 +21,7 @@ export class LandingPageProcess {
   }
 
   submitLeadData (lead) {
-    console.info('Submiting lead: ' + lead)
-    console.info('Successfully!')
+    this.landingPageLeadRestClient.createANewLead(lead)
     lead.isSubmited = true
   }
 

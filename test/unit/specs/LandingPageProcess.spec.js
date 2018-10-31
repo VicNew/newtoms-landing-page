@@ -3,15 +3,18 @@ import {SimpleLeadData} from '@/js/SimpleLeadData'
 import {SubmitedLeadData} from '@/js/SubmitedLeadData'
 import {LandingPageProcess} from '@/js/LandingPageProcess'
 import {LandingPageRestClientWithErrorHandler} from '@/js/LandingPageRestClientWithErrorHandler'
+import {LandingPageLeadRestClient} from '@/js/LandingPageLeadRestClient'
 import {LandingPageConfigMapper} from '@/js/LandingPageConfigMapper'
 
 describe('Landing Page Process Test', () => {
   let landingPageProcess = {}
-  var landingPageRestClient
+  var landingPageRestClient = {}
+  var landingPageLeadRestClient = {}
   beforeEach (() => {
     landingPageRestClient = getLandingPageSpyRestClient()
+    landingPageLeadRestClient = getLandingPageLeadSpyRestClient()
     var landingPageConfigMapper = new LandingPageConfigMapper()
-    landingPageProcess = new LandingPageProcess(landingPageRestClient, landingPageConfigMapper)
+    landingPageProcess = new LandingPageProcess(landingPageRestClient, landingPageLeadRestClient, landingPageConfigMapper)
   })
 
   it('Given Landing Page Process class when create a new object then return an instance', () => {
@@ -96,6 +99,13 @@ describe('Landing Page Process Test', () => {
     landingPageProcess.submitLeadData(lead)
     expect(lead.isSubmited).toEqual(true)
   })
+
+  it('Given a Lead data when submit Lead Data create a new Lead in server', () => {
+    let lead = getDefaultSubmitedLeadData()
+    landingPageProcess.submitLeadData(lead)
+    expect(landingPageLeadRestClient.createANewLead).toHaveBeenCalled()
+    expect(landingPageLeadRestClient.createANewLead).toHaveBeenCalledWith(lead)
+  })
 })
 
 class LandingPageSpyRestClient extends LandingPageRestClientWithErrorHandler {
@@ -111,10 +121,48 @@ class LandingPageSpyRestClient extends LandingPageRestClientWithErrorHandler {
   }
 }
 
+class LandingPageLeadSpyRestClient extends LandingPageLeadRestClient {
+  constructor () {
+    super('')
+    this.createdLeadResponse = {
+        "id":1,
+        "firstName":"Victor",
+        "lastName":"Luna",
+        "company":"Newtoms",
+        "title":"Developer",
+        "email":"victor.luna@newtoms.com",
+        "status":"Created",
+        "links":[
+          {
+              "rel":"/linkrels/lead/info",
+              "uri":"/landingpage/lead/1234",
+              "method":"GET"
+          },
+          {
+              "rel":"/linkrels/lead/updateInfo",
+              "uri":"/landingpage/lead/1234",
+              "method":"PUT"
+          },
+          {
+              "rel":"/linkrels/lead/delete",
+              "uri":"/landingpage/lead/1234",
+              "method":"DELETE"
+          }
+        ]
+    }
+  }
+}
+
 function getLandingPageSpyRestClient() {
   var landingPageRestClient = new LandingPageSpyRestClient()
   spyOn(landingPageRestClient, 'getLandingPageTemplateConfigById').and.returnValue(landingPageRestClient.templateConfigResponse)
   return landingPageRestClient
+}
+
+function getLandingPageLeadSpyRestClient() {
+  var landingPageLeadRestClient = new LandingPageLeadSpyRestClient()
+  spyOn(landingPageLeadRestClient, 'createANewLead').and.returnValue(landingPageLeadRestClient.createdLeadResponse)
+  return landingPageLeadRestClient
 }
 
 function getDefaultSubmitedLeadData() {

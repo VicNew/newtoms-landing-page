@@ -1,5 +1,6 @@
 import {LandingPageFactory} from '@/js/LandingPageFactory'
 import {LandingPageRestClientWithErrorHandler} from '@/js/LandingPageRestClientWithErrorHandler'
+import {LandingPageLeadRestClient} from '@/js/LandingPageLeadRestClient'
 import {LandingPageProcess} from '@/js/LandingPageProcess'
 import {LandingPageConfigMapper} from '@/js/LandingPageConfigMapper'
 
@@ -53,6 +54,14 @@ describe('Landing Page Factory', () => {
         expect(landingPageFactorySpy.getLandingPageRestClient).toHaveBeenCalled()
     })
 
+    it('Given a Landing Page Factory when get Landing Page Process class then use the right Lead Rest Client', () => {
+        let landingPageFactorySpy = new LandingPageFactory()
+        spyOn(landingPageFactorySpy, 'getLandingPageLeadRestClient').and.callThrough()
+        let process = landingPageFactorySpy.getLandingPageProcess()
+        expect(process).not.toBe(null)
+        expect(landingPageFactorySpy.getLandingPageLeadRestClient).toHaveBeenCalled()
+    })
+
     it('Given a Landing Page Factory when get Landing Page Process class then use the right Mapper', () => {
         let landingPageFactorySpy = new LandingPageFactory()
         spyOn(landingPageFactorySpy, 'getLandingPageConfigMapper').and.callThrough()
@@ -61,4 +70,17 @@ describe('Landing Page Factory', () => {
         expect(landingPageFactorySpy.getLandingPageConfigMapper).toHaveBeenCalled()
     })
 
+    it('Given a Landing Page Factory when get Landing Page Lead Rest Client then return the right instance', () => {
+        expect(landingPageFactory.getLandingPageLeadRestClient()).not.toBe(null)
+        expect(landingPageFactory.getLandingPageLeadRestClient() instanceof Object).toBeTruthy()
+        expect(landingPageFactory.getLandingPageLeadRestClient() instanceof LandingPageLeadRestClient).toBeTruthy()
+    })
+
+    it('Given a Landing Page Factory when get Landing Page Lead Rest Client then use the right service url', () => {
+        let landingPageFactorySpy = new LandingPageFactory()
+        spyOn(landingPageFactorySpy, 'getLandingPageRestApiBaseUrl').and.callThrough()
+        let restClient = landingPageFactorySpy.getLandingPageLeadRestClient()
+        expect(restClient).not.toBe(null)
+        expect(landingPageFactorySpy.getLandingPageRestApiBaseUrl).toHaveBeenCalled()
+    })
 })

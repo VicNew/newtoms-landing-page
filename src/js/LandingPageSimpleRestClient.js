@@ -1,6 +1,8 @@
-export class LandingPageSimpleRestClient {
+import {SimpleRestClient} from './SimpleRestClient'
+
+export class LandingPageSimpleRestClient extends SimpleRestClient {
   constructor (baseUrl) {
-    this.baseUrl = baseUrl
+    super(baseUrl)
     this.resource = '/landingpage/template/'
   }
 
@@ -12,30 +14,5 @@ export class LandingPageSimpleRestClient {
 
   getCompleteServiceUrl (resourcePath) {
     return this.getBaseUrl() + resourcePath
-  }
-
-  getBaseUrl () {
-    return this.baseUrl
-  }
-
-  transformJsonStringFormatToObject (jsonText) {
-    return JSON.parse(jsonText)
-  }
-
-  getHttpRequestClient () {
-    return new XMLHttpRequest()
-  }
-
-  sendSyncGetRequest (client, serviceUrl) {
-    client.open('GET', serviceUrl, false)
-    client.send(null)
-  }
-
-  getTextResponse (client) {
-    return client.responseText
-  }
-
-  getResponse (client) {
-    return this.transformJsonStringFormatToObject(this.getTextResponse(client))
   }
 }
