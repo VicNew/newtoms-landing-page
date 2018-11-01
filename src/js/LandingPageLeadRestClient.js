@@ -1,6 +1,6 @@
-import {SimpleRestClient} from './SimpleRestClient'
+import {SimpleErrorHandlerRestClient} from './SimpleErrorHandlerRestClient'
 
-export class LandingPageLeadRestClient extends SimpleRestClient {
+export class LandingPageLeadRestClient extends SimpleErrorHandlerRestClient {
   constructor (baseUrl) {
     super(baseUrl)
     this.resource = '/landingpage/lead/'
@@ -15,5 +15,9 @@ export class LandingPageLeadRestClient extends SimpleRestClient {
 
   getMainLeadServiceUrl () {
     return this.baseUrl + this.resource
+  }
+
+  getSuccessStatus () {
+    return 201
   }
 }

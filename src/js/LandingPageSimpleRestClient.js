@@ -1,6 +1,6 @@
-import {SimpleRestClient} from './SimpleRestClient'
+import {SimpleErrorHandlerRestClient} from './SimpleErrorHandlerRestClient'
 
-export class LandingPageSimpleRestClient extends SimpleRestClient {
+export class LandingPageSimpleRestClient extends SimpleErrorHandlerRestClient {
   constructor (baseUrl) {
     super(baseUrl)
     this.resource = '/landingpage/template/'

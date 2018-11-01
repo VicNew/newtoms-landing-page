@@ -1,4 +1,5 @@
 import {LandingPageRestClientWithErrorHandler} from '@/js/LandingPageRestClientWithErrorHandler'
+import {LandingPageSimpleRestClient} from '@/js/LandingPageSimpleRestClient'
 import {RestClientException} from '@/js/RestClientException'
 
 describe('Landing Page Rest Client With Error Handler', () => {
@@ -24,7 +25,7 @@ describe('Landing Page Rest Client With Error Handler', () => {
 
     it('Given a Landing Page Template Config Id when get configuration from service and something fail then throw an error', () => {
         try {
-            let realRestClient = new LandingPageRestClientWithErrorHandler('https://mocksvc.mulesoft.com/mocks/invalid')
+            let realRestClient = new LandingPageSimpleRestClient('https://mocksvc.mulesoft.com/mocks/invalid')
             realRestClient.getLandingPageTemplateConfigById(1)
         } catch (error) {
             expect(error).not.toBeNull()
@@ -34,7 +35,7 @@ describe('Landing Page Rest Client With Error Handler', () => {
 
     it('Given a Landing Page Template Config Id when get configuration from service with invalid base url then throw a not found error', () => {
         try {
-            let realRestClient = new LandingPageRestClientWithErrorHandler('https://mocksvc.mulesoft.com/mocks/invalid')
+            let realRestClient = new LandingPageSimpleRestClient('https://mocksvc.mulesoft.com/mocks/invalid')
             realRestClient.getLandingPageTemplateConfigById(1)
         } catch (error) {
             expect(error.statusCode).toEqual(404)
@@ -44,7 +45,7 @@ describe('Landing Page Rest Client With Error Handler', () => {
     })
 
     xit('functional Test', () => {
-        let realRestClient = new LandingPageRestClientWithErrorHandler('https://mocksvc.mulesoft.com/mocks/bd61be4a-c2b5-49ad-a910-33c7624b6afb')
+        let realRestClient = new LandingPageSimpleRestClient('https://mocksvc.mulesoft.com/mocks/bd61be4a-c2b5-49ad-a910-33c7624b6afb')
         var response = realRestClient.getLandingPageTemplateConfigById(1)
         expect(response.documentId).toEqual(1)
         expect(response.documentType).toEqual('Whitepaper')
@@ -83,6 +84,7 @@ class XMLHttpRequestMock {
 function getMockedXMLHttpRequestMock () {
     var mockXMLHttpRequest = new XMLHttpRequestMock()
     mockXMLHttpRequest.responseText = mockResponseJsonText
+    mockXMLHttpRequest.status = 200
     spyOn(mockXMLHttpRequest, 'open').and.callFake((method, serviceUrl, aSync) => {
     })
     spyOn(mockXMLHttpRequest, 'send').and.callFake((body) => {
@@ -91,7 +93,7 @@ function getMockedXMLHttpRequestMock () {
 }
 
 function getLandingPageSimpleRestClient(baseUrl, xmlHttpRequestMock) {
-    let restClient = new LandingPageRestClientWithErrorHandler(baseUrl)
+    let restClient = new LandingPageSimpleRestClient(baseUrl)
     spyOn(restClient, 'getHttpRequestClient').and.returnValue(xmlHttpRequestMock)
     return restClient
 }

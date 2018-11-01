@@ -83,6 +83,7 @@ let mockResponseJsonText = '   {  '  +
 function getMockedXMLHttpRequestMock () {
     var mockXMLHttpRequest = new XMLHttpRequestMock()
     mockXMLHttpRequest.responseText = mockResponseJsonText
+    mockXMLHttpRequest.status = 200
     spyOn(mockXMLHttpRequest, 'open').and.callFake((method, serviceUrl, aSync) => {
     })
     spyOn(mockXMLHttpRequest, 'send').and.callFake((body) => {
@@ -100,6 +101,7 @@ function getSpyLandingPageSimpleRestClient(baseUrl) {
     let restClientMocked = new LandingPageSimpleRestClient('https://mocksvc.mulesoft.com/mocks/bd61be4a-c2b5-49ad-a910-33c7624b6afb')
     spyOn(restClientMocked, 'sendSyncGetRequest').and.callFake(spySendSyncGetRequest)
     spyOn(restClientMocked, 'getTextResponse').and.returnValue(mockResponseJsonText)
+    spyOn(restClientMocked, 'getRequestStaus').and.returnValue(200)
     return restClientMocked
 }
 

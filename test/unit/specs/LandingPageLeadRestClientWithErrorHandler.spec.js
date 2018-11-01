@@ -1,7 +1,8 @@
 import {LandingPageLeadRestClient} from '@/js/LandingPageLeadRestClient'
-import {SimpleRestClient} from '@/js/SimpleRestClient'
+import {SimpleErrorHandlerRestClient} from '@/js/SimpleErrorHandlerRestClient'
 import {SimpleLeadData} from '@/js/SimpleLeadData'
 import {XMLHttpRequestMock} from './XMLHttpRequestMock.spec'
+import {RestClientException} from '@/js/RestClientException'
 
 describe('Landing Page Lead Rest Client Test', () => {
     var landingPageLeadRestClient = {}
@@ -15,22 +16,8 @@ describe('Landing Page Lead Rest Client Test', () => {
     it('Given a LandingPageLeadRestClient class then create a new instance', () => {
         expect(landingPageLeadRestClient).not.toBe(null)
         expect(landingPageLeadRestClient instanceof Object).toBeTruthy()
-        expect(landingPageLeadRestClient instanceof SimpleRestClient).toBeTruthy()
+        expect(landingPageLeadRestClient instanceof SimpleErrorHandlerRestClient).toBeTruthy()
         expect(landingPageLeadRestClient instanceof LandingPageLeadRestClient).toBeTruthy()
-    })
-
-    it('Given a LandingPageLeadRestClient class when create a new instance then it has a base url', () => {
-        expect(landingPageLeadRestClient.baseUrl).toBe('https://mocksvc.mulesoft.com/mocks/bd61be4a-c2b5-49ad-a910-33c7624b6afb')
-    })
-
-    it('Given a LandingPageLeadRestClient class when create a new instance then it has a base url', () => {
-        expect(landingPageLeadRestClient.resource).toBe('/landingpage/lead/')
-    })
-
-    it('Given a Simple Lead Data when create A new lead then return a response', () => {
-        let response = landingPageLeadRestClient.createANewLead(getDefaultLeadData())
-        expect(response).not.toBe(null)
-        expect(response instanceof Object).toBeTruthy()
     })
 
     it('Given a Simple Lead Data when create A new lead then return a valid response', () => {
@@ -44,37 +31,25 @@ describe('Landing Page Lead Rest Client Test', () => {
         expect(response.status).toEqual('Created')
     })
 
-    it('Given a Simple Lead Data when create A new lead then transform lead data to a valid Json string format', () => {
-        spyOn(landingPageLeadRestClient, 'getRequestAsJsonString')
-        let lead = getDefaultLeadData()
-        landingPageLeadRestClient.createANewLead(lead)
-        expect(landingPageLeadRestClient.getRequestAsJsonString).toHaveBeenCalled()
-        expect(landingPageLeadRestClient.getRequestAsJsonString).toHaveBeenCalledWith(lead)
+    it('Given a Landing Page Template Config Id when get configuration from service and something fail then throw an error', () => {
+        try {
+            let realRestClient = new LandingPageLeadRestClient('https://mocksvc.mulesoft.com/mocks/invalid')
+            realRestClient.createANewLead(getDefaultLeadData())
+        } catch (error) {
+            expect(error).not.toBeNull()
+            expect(error instanceof RestClientException).toBeTruthy()
+        }
     })
 
-    it('Given a Simple Lead Data when create A new lead then get the right rest client', () => {
-        landingPageLeadRestClient.createANewLead(getDefaultLeadData())
-        expect(landingPageLeadRestClient.getHttpRequestClient).toHaveBeenCalled()
-    })
-
-    it('Given a Simple Lead Data when create A new lead then get the right service url', () => {
-        spyOn(landingPageLeadRestClient, 'getMainLeadServiceUrl')
-        landingPageLeadRestClient.createANewLead(getDefaultLeadData())
-        expect(landingPageLeadRestClient.getMainLeadServiceUrl).toHaveBeenCalled()
-    })
-
-    it('Given a Simple Lead Data when create A new lead then send the right request data', () => {
-        spyOn(landingPageLeadRestClient, 'sendSyncJsonPostRequest')
-        let lead = getDefaultLeadData()
-        landingPageLeadRestClient.createANewLead(lead)
-        expect(landingPageLeadRestClient.sendSyncJsonPostRequest).toHaveBeenCalled()
-        expect(landingPageLeadRestClient.sendSyncJsonPostRequest).toHaveBeenCalledWith(mockXMLHttpRequest,baseUrl + '/landingpage/lead/', JSON.stringify(lead))
-    })
-
-    it('Given a Simple Lead Data when create A new lead then get the response', () => {
-        spyOn(landingPageLeadRestClient, 'getResponse')
-        landingPageLeadRestClient.createANewLead(getDefaultLeadData())
-        expect(landingPageLeadRestClient.getResponse).toHaveBeenCalled()
+    it('Given a Landing Page Template Config Id when get configuration from service with invalid base url then throw a not found error', () => {
+        try {
+            let realRestClient = new LandingPageLeadRestClient('https://mocksvc.mulesoft.com/mocks/invalid')
+            realRestClient.createANewLead(getDefaultLeadData())
+        } catch (error) {
+            expect(error.statusCode).toEqual(404)
+            expect(error.statusText).toEqual('Not Found')
+            expect(error.description).toEqual('')
+        }
     })
 
     xit('Functional - Given a Simple Lead Data when create A new lead then return a valid response', () => {
