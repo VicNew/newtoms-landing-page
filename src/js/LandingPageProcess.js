@@ -1,4 +1,5 @@
 import {SubmitedLeadData} from './SubmitedLeadData'
+import {PrivacyPolicyData} from './PrivacyPolicyData'
 import {Util} from './Util'
 
 export class LandingPageProcess {
@@ -39,5 +40,17 @@ export class LandingPageProcess {
 
   getlandingPageConfigMapper () {
     return this.landingPageConfigMapper
+  }
+
+  getPrivacyPolicyData () {
+    return new PrivacyPolicyData()
+  }
+
+  switchPrivacyPolicy (privacyPolicyData) {
+    privacyPolicyData.isPrivatePolicyVisible = !privacyPolicyData.isPrivatePolicyVisible
+  }
+
+  selectPrivacyPolicyLanguage (privacyPolicyData, language) {
+    privacyPolicyData.selectedLanguage = language
   }
 }

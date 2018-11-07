@@ -18,7 +18,7 @@ export default {
     -moz-osx-font-smoothing: grayscale;
     text-align: center;
     color: white;
-    margin-top: 60px;
+    margin-top: 0px;
   }
   .bg-black {
     background-color:#1a1a1a!important

@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import LandingPageTemplate from '@/components/LandingPageTemplate'
+import IndexTemplate from '@/components/IndexTemplate'
 
 Vue.use(Router)
 
@@ -8,8 +8,8 @@ export default new Router({
   routes: [
     {
       path: '/',
-      name: 'LandingPageTemplate',
-      component: LandingPageTemplate
+      name: 'IndexTemplate',
+      component: IndexTemplate
     }
   ]
 })
