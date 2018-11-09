@@ -9,7 +9,7 @@ describe('Landing Page Lead Rest Client Test', () => {
     var mockXMLHttpRequest = {}
     beforeEach (() => {
         mockXMLHttpRequest = getMockedXMLHttpRequestMock(mockResponseJsonText)
-        mockXMLHttpRequest.status = 201
+        mockXMLHttpRequest.status = 200
         landingPageLeadRestClient = getLandingPageLeadRestClient(baseUrl, mockXMLHttpRequest)
     })
 

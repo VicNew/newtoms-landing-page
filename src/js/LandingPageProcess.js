@@ -22,7 +22,9 @@ export class LandingPageProcess {
   }
 
   submitLeadData (lead) {
+    console.info('Send request for new Lead:', lead)
     this.landingPageLeadRestClient.createANewLead(lead)
+    console.info('Sended request for new Lead:' + lead)
     lead.isSubmited = true
   }
 

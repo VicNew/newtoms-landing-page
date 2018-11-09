@@ -19,7 +19,7 @@ export class SimpleRestClient {
 
   sendSyncGetRequest (client, serviceUrl) {
     client.open('GET', serviceUrl, false)
-    client.send(null)
+    client.send()
   }
 
   getRequestAsJsonString (objectToTransform) {

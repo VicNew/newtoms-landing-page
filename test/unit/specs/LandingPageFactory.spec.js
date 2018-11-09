@@ -17,7 +17,7 @@ describe('Landing Page Factory', () => {
     })
 
     it('Given a Landing Page Factory when get Landing Page Rest Api Base Url then return the right url', () => {
-        expect(landingPageFactory.getLandingPageRestApiBaseUrl()).toEqual('https://mocksvc.mulesoft.com/mocks/bd61be4a-c2b5-49ad-a910-33c7624b6afb')
+        expect(landingPageFactory.getLandingPageRestApiBaseUrl()).toEqual('https://newtoms-landingpage-process-api.us-e1.cloudhub.io/api')
     })
 
     it('Given a Landing Page Factory when get Landing Page Rest Client then return the right instance', () => {

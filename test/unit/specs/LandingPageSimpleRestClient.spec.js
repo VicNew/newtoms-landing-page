@@ -59,7 +59,8 @@ describe('Landing Page Simple Rest Client', () => {
     })
 
     xit('functional Test', () => {
-        let realRestClient = new LandingPageSimpleRestClient('https://mocksvc.mulesoft.com/mocks/bd61be4a-c2b5-49ad-a910-33c7624b6afb')
+        //let realRestClient = new LandingPageSimpleRestClient('https://mocksvc.mulesoft.com/mocks/bd61be4a-c2b5-49ad-a910-33c7624b6afb')
+        let realRestClient = new LandingPageSimpleRestClient('https://newtoms-landingpage-process-api.us-e1.cloudhub.io/api')
         var response = realRestClient.getLandingPageTemplateConfigById(1)
         expect(response.documentId).toEqual(1)
         expect(response.documentType).toEqual('Whitepaper')
