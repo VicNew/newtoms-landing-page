@@ -1,4 +1,3 @@
-import {LandingPageRestClientWithErrorHandler} from '@/js/LandingPageRestClientWithErrorHandler'
 import {LandingPageSimpleRestClient} from '@/js/LandingPageSimpleRestClient'
 import {RestClientException} from '@/js/RestClientException'
 

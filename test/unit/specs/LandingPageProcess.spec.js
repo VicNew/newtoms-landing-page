@@ -2,7 +2,7 @@ import {LandingPageConfig} from '@/js/LandingPageConfig'
 import {SimpleLeadData} from '@/js/SimpleLeadData'
 import {SubmitedLeadData} from '@/js/SubmitedLeadData'
 import {LandingPageProcess} from '@/js/LandingPageProcess'
-import {LandingPageRestClientWithErrorHandler} from '@/js/LandingPageRestClientWithErrorHandler'
+import {LandingPageSimpleRestClient} from '@/js/LandingPageSimpleRestClient'
 import {LandingPageLeadRestClient} from '@/js/LandingPageLeadRestClient'
 import {LandingPageConfigMapper} from '@/js/LandingPageConfigMapper'
 import {PrivacyPolicyData} from '@/js/PrivacyPolicyData'
@@ -135,7 +135,7 @@ describe('Landing Page Process Test', () => {
   })
 })
 
-class LandingPageSpyRestClient extends LandingPageRestClientWithErrorHandler {
+class LandingPageSpyRestClient extends LandingPageSimpleRestClient {
   constructor () {
     super('')
     this.templateConfigResponse = {

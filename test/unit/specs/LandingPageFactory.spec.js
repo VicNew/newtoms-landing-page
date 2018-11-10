@@ -1,5 +1,5 @@
 import {LandingPageFactory} from '@/js/LandingPageFactory'
-import {LandingPageRestClientWithErrorHandler} from '@/js/LandingPageRestClientWithErrorHandler'
+import {LandingPageSimpleRestClient} from '@/js/LandingPageSimpleRestClient'
 import {LandingPageLeadRestClient} from '@/js/LandingPageLeadRestClient'
 import {LandingPageProcess} from '@/js/LandingPageProcess'
 import {LandingPageConfigMapper} from '@/js/LandingPageConfigMapper'
@@ -23,7 +23,7 @@ describe('Landing Page Factory', () => {
     it('Given a Landing Page Factory when get Landing Page Rest Client then return the right instance', () => {
         expect(landingPageFactory.getLandingPageRestClient()).not.toBe(null)
         expect(landingPageFactory.getLandingPageRestClient() instanceof Object).toBeTruthy()
-        expect(landingPageFactory.getLandingPageRestClient() instanceof LandingPageRestClientWithErrorHandler).toBeTruthy()
+        expect(landingPageFactory.getLandingPageRestClient() instanceof LandingPageSimpleRestClient).toBeTruthy()
     })
 
     it('Given a Landing Page Factory when get Landing Page Rest Client then use the right service url', () => {
