@@ -1,5 +1,5 @@
 import {LandingPageFactory} from '@/js/LandingPageFactory'
-import {LandingPageRestClientWithErrorHandler} from '@/js/LandingPageRestClientWithErrorHandler'
+import {LandingPageSimpleRestClient} from '@/js/LandingPageSimpleRestClient'
 import {LandingPageLeadRestClient} from '@/js/LandingPageLeadRestClient'
 import {LandingPageProcess} from '@/js/LandingPageProcess'
 import {LandingPageConfigMapper} from '@/js/LandingPageConfigMapper'
@@ -17,13 +17,13 @@ describe('Landing Page Factory', () => {
     })
 
     it('Given a Landing Page Factory when get Landing Page Rest Api Base Url then return the right url', () => {
-        expect(landingPageFactory.getLandingPageRestApiBaseUrl()).toEqual('https://mocksvc.mulesoft.com/mocks/bd61be4a-c2b5-49ad-a910-33c7624b6afb')
+        expect(landingPageFactory.getLandingPageRestApiBaseUrl()).toEqual('https://newtoms-landingpage-process-api.us-e1.cloudhub.io/api')
     })
 
     it('Given a Landing Page Factory when get Landing Page Rest Client then return the right instance', () => {
         expect(landingPageFactory.getLandingPageRestClient()).not.toBe(null)
         expect(landingPageFactory.getLandingPageRestClient() instanceof Object).toBeTruthy()
-        expect(landingPageFactory.getLandingPageRestClient() instanceof LandingPageRestClientWithErrorHandler).toBeTruthy()
+        expect(landingPageFactory.getLandingPageRestClient() instanceof LandingPageSimpleRestClient).toBeTruthy()
     })
 
     it('Given a Landing Page Factory when get Landing Page Rest Client then use the right service url', () => {

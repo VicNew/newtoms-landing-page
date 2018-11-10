@@ -8,7 +8,7 @@ export class LandingPageLeadRestClient extends SimpleErrorHandlerRestClient {
 
   createANewLead (lead) {
     let body = this.getRequestAsJsonString(lead)
-    let client = this.getHttpRequestClient()
+    var client = this.getHttpRequestClient()
     this.sendSyncJsonPostRequest(client, this.getMainLeadServiceUrl(), body)
     return this.getResponse(client)
   }
@@ -18,6 +18,6 @@ export class LandingPageLeadRestClient extends SimpleErrorHandlerRestClient {
   }
 
   getSuccessStatus () {
-    return 201
+    return 200
   }
 }

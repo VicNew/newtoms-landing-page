@@ -1,4 +1,5 @@
 import {SubmitedLeadData} from './SubmitedLeadData'
+import {PrivacyPolicyData} from './PrivacyPolicyData'
 import {Util} from './Util'
 
 export class LandingPageProcess {
@@ -21,7 +22,9 @@ export class LandingPageProcess {
   }
 
   submitLeadData (lead) {
+    console.info('Send request for new Lead:', lead)
     this.landingPageLeadRestClient.createANewLead(lead)
+    console.info('Sended request for new Lead:' + lead)
     lead.isSubmited = true
   }
 
@@ -39,5 +42,17 @@ export class LandingPageProcess {
 
   getlandingPageConfigMapper () {
     return this.landingPageConfigMapper
+  }
+
+  getPrivacyPolicyData () {
+    return new PrivacyPolicyData()
+  }
+
+  switchPrivacyPolicy (privacyPolicyData) {
+    privacyPolicyData.isPrivatePolicyVisible = !privacyPolicyData.isPrivatePolicyVisible
+  }
+
+  selectPrivacyPolicyLanguage (privacyPolicyData, language) {
+    privacyPolicyData.selectedLanguage = language
   }
 }

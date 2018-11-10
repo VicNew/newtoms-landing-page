@@ -8,7 +8,7 @@ describe('Landing Page Lead Rest Client Test', () => {
     var mockXMLHttpRequest = {}
     beforeEach (() => {
         mockXMLHttpRequest = getMockedXMLHttpRequestMock(mockResponseJsonText)
-        mockXMLHttpRequest.status = 201
+        mockXMLHttpRequest.status = 200
         landingPageLeadRestClient = getLandingPageLeadRestClient(baseUrl, mockXMLHttpRequest)
     })
 
@@ -78,10 +78,11 @@ describe('Landing Page Lead Rest Client Test', () => {
     })
 
     xit('Functional - Given a Simple Lead Data when create A new lead then return a valid response', () => {
-        let realRestClient = new LandingPageLeadRestClient('https://mocksvc.mulesoft.com/mocks/bd61be4a-c2b5-49ad-a910-33c7624b6afb')
+        //let realRestClient = new LandingPageLeadRestClient('https://mocksvc.mulesoft.com/mocks/bd61be4a-c2b5-49ad-a910-33c7624b6afb')
+        let realRestClient = new LandingPageLeadRestClient('https://newtoms-landingpage-process-api.us-e1.cloudhub.io/api')
         let lead = getDefaultLeadData()
         let response = realRestClient.createANewLead(lead)
-        expect(response.id).toEqual(1)
+        //expect(response.id).toEqual(1)
         expect(response.firstName).toEqual('Victor')
         expect(response.lastName).toEqual('Luna')
         expect(response.company).toEqual('Newtoms')

@@ -8,7 +8,7 @@
         </div>
         <div class="form-row">
             <div class="col-md-12 col-lg-12 col-xl-12" v-if="!lead.isSubmited && isLeadDataComplete()">
-                <a href="#" class="btn btn-block btn-lg btn-primary active" @click="submitLead()"> Submit </a>
+                <a href="#" class="btn btn-block btn-lg btn-primary active" @click.self.prevent="submitLead()"> Submit </a>
             </div>
         </div>
     </form>

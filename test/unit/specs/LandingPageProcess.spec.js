@@ -2,9 +2,10 @@ import {LandingPageConfig} from '@/js/LandingPageConfig'
 import {SimpleLeadData} from '@/js/SimpleLeadData'
 import {SubmitedLeadData} from '@/js/SubmitedLeadData'
 import {LandingPageProcess} from '@/js/LandingPageProcess'
-import {LandingPageRestClientWithErrorHandler} from '@/js/LandingPageRestClientWithErrorHandler'
+import {LandingPageSimpleRestClient} from '@/js/LandingPageSimpleRestClient'
 import {LandingPageLeadRestClient} from '@/js/LandingPageLeadRestClient'
 import {LandingPageConfigMapper} from '@/js/LandingPageConfigMapper'
+import {PrivacyPolicyData} from '@/js/PrivacyPolicyData'
 
 describe('Landing Page Process Test', () => {
   let landingPageProcess = {}
@@ -106,9 +107,35 @@ describe('Landing Page Process Test', () => {
     expect(landingPageLeadRestClient.createANewLead).toHaveBeenCalled()
     expect(landingPageLeadRestClient.createANewLead).toHaveBeenCalledWith(lead)
   })
+
+  it('Given Landing Page Process class when get Privacy Policy Data then return a PrivacyPolicyData instance', () => {
+    expect(landingPageProcess.getPrivacyPolicyData() != null).toEqual(true)
+    expect(typeof landingPageProcess.getPrivacyPolicyData().valueOf()).toEqual('object')
+    expect(landingPageProcess.getPrivacyPolicyData() instanceof PrivacyPolicyData).toEqual(true)
+  })
+
+  it('Given Landing Page Process class when get Privacy Policy Data then return a default Privacy Policy Data', () => {
+    let privacyPolicyData = landingPageProcess.getPrivacyPolicyData()
+    expect(privacyPolicyData.isPrivatePolicyVisible).toEqual(false)
+    expect(privacyPolicyData.selectedLanguage).toEqual('En')
+  })
+
+  it('Given Landing Page Process class when switch Privacy Policy then toggle Privacy Policy Visibility', () => {
+    let privacyPolicyData = new PrivacyPolicyData()
+    expect(privacyPolicyData.isPrivatePolicyVisible).toEqual(false)
+    landingPageProcess.switchPrivacyPolicy(privacyPolicyData)
+    expect(privacyPolicyData.isPrivatePolicyVisible).toEqual(true)
+  })
+
+  it('Given Landing Page Process class when select Privacy Policy Language then set new language in Privacy Policy Data', () => {
+    let privacyPolicyData = new PrivacyPolicyData()
+    expect(privacyPolicyData.selectedLanguage).toEqual('En')
+    landingPageProcess.selectPrivacyPolicyLanguage(privacyPolicyData, 'Esp')
+    expect(privacyPolicyData.selectedLanguage).toEqual('Esp')
+  })
 })
 
-class LandingPageSpyRestClient extends LandingPageRestClientWithErrorHandler {
+class LandingPageSpyRestClient extends LandingPageSimpleRestClient {
   constructor () {
     super('')
     this.templateConfigResponse = {
