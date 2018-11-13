@@ -7,7 +7,7 @@
         <div class="col-md-6 col-lg-6 col-xl-6">
           <div class="border border-primary" style="padding: 10px;">
             <user-message-template :userMessage="userMessage"></user-message-template>
-            <app-simple-lead-register-template :lead="lead"></app-simple-lead-register-template>
+            <app-simple-lead-register-template :lead="lead" :config="config"></app-simple-lead-register-template>
           </div>
         </div>
       </div>
