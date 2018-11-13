@@ -18,7 +18,7 @@ export class LandingPageProcess {
   }
 
   isLeadDataComplete (lead) {
-    return (lead != null && this.isNotEmptyValue(lead.firstName) && this.isNotEmptyValue(lead.lastName) && this.isNotEmptyValue(lead.company) && this.isNotEmptyValue(lead.title) && this.isNotEmptyValue(lead.email))
+    return (lead != null && this.isNotEmptyValue(lead.firstName) && this.isNotEmptyValue(lead.lastName) && this.isNotEmptyValue(lead.company) && this.isNotEmptyValue(lead.title) && this.isValidEmail(lead.email))
   }
 
   submitLeadData (lead) {
@@ -30,6 +30,10 @@ export class LandingPageProcess {
 
   isNotEmptyValue (value) {
     return !Util.isEmptyString(value)
+  }
+
+  isValidEmail (email) {
+    return (this.isNotEmptyValue(email) && Util.isAValidEmail(email))
   }
 
   transformTemplateConfigResponse (response) {

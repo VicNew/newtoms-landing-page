@@ -6,6 +6,8 @@ import {LandingPageSimpleRestClient} from '@/js/LandingPageSimpleRestClient'
 import {LandingPageLeadRestClient} from '@/js/LandingPageLeadRestClient'
 import {LandingPageConfigMapper} from '@/js/LandingPageConfigMapper'
 import {PrivacyPolicyData} from '@/js/PrivacyPolicyData'
+import {LandingPageLeadSpyRestClient} from './LandingPageLeadSpyRestClient.spec'
+import {LandingPageSpyRestClient} from './LandingPageSpyRestClient.spec'
 
 describe('Landing Page Process Test', () => {
   let landingPageProcess = {}
@@ -95,6 +97,12 @@ describe('Landing Page Process Test', () => {
     expect(landingPageProcess.isLeadDataComplete(lead)).toEqual(false)
   })
 
+  it('Given a Lead data with invalid email when check if is lead data complete then return false', () => {
+    let lead = getDefaultSubmitedLeadData()
+    lead.email = 'victor.luna'
+    expect(landingPageProcess.isLeadDataComplete(lead)).toEqual(false)
+  })
+
   it('Given a Lead data when submit Lead Data then return lead as submited', () => {
     let lead = getDefaultSubmitedLeadData()
     landingPageProcess.submitLeadData(lead)
@@ -135,61 +143,12 @@ describe('Landing Page Process Test', () => {
   })
 })
 
-class LandingPageSpyRestClient extends LandingPageSimpleRestClient {
-  constructor () {
-    super('')
-    this.templateConfigResponse = {
-      "documentId":1,
-      "documentType":"Whitepaper",
-      "documentTitle":"Best practices for microservices",
-      "documentDescription":"Today's business environment is extraordinarily competitive. No company – no matter its size or what industry it is in – is safe from disruption. To mitigate this risk, it's important to consider implementing microservices best practices in order to change quickly, innovate easily, and meet competition wherever it arises.",
-      "documentUrl":"https://www.mulesoft.com/sites/default/files/resource-assets/wp_Best%20Practices%20for%20Microservices%20Whitepaper%20Research.pdf"
-   }
-  }
-}
-
-class LandingPageLeadSpyRestClient extends LandingPageLeadRestClient {
-  constructor () {
-    super('')
-    this.createdLeadResponse = {
-        "id":1,
-        "firstName":"Victor",
-        "lastName":"Luna",
-        "company":"Newtoms",
-        "title":"Developer",
-        "email":"victor.luna@newtoms.com",
-        "status":"Created",
-        "links":[
-          {
-              "rel":"/linkrels/lead/info",
-              "uri":"/landingpage/lead/1234",
-              "method":"GET"
-          },
-          {
-              "rel":"/linkrels/lead/updateInfo",
-              "uri":"/landingpage/lead/1234",
-              "method":"PUT"
-          },
-          {
-              "rel":"/linkrels/lead/delete",
-              "uri":"/landingpage/lead/1234",
-              "method":"DELETE"
-          }
-        ]
-    }
-  }
-}
-
 function getLandingPageSpyRestClient() {
-  var landingPageRestClient = new LandingPageSpyRestClient()
-  spyOn(landingPageRestClient, 'getLandingPageTemplateConfigById').and.returnValue(landingPageRestClient.templateConfigResponse)
-  return landingPageRestClient
+  return LandingPageSpyRestClient.getLandingPageSpyRestClient()
 }
-
+  
 function getLandingPageLeadSpyRestClient() {
-  var landingPageLeadRestClient = new LandingPageLeadSpyRestClient()
-  spyOn(landingPageLeadRestClient, 'createANewLead').and.returnValue(landingPageLeadRestClient.createdLeadResponse)
-  return landingPageLeadRestClient
+  return LandingPageLeadSpyRestClient.getLandingPageLeadSpyRestClient()
 }
 
 function getDefaultSubmitedLeadData() {

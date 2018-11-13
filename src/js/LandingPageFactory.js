@@ -1,8 +1,9 @@
 import {AppConfig} from './LandingPageAppConfig'
-import {LandingPageProcess} from './LandingPageProcess'
+import {LandingPageUserMessageProcess} from './LandingPageUserMessageProcess'
 import {LandingPageSimpleRestClient} from '@/js/LandingPageSimpleRestClient'
 import {LandingPageLeadRestClient} from './LandingPageLeadRestClient'
 import {LandingPageConfigMapper} from './LandingPageConfigMapper'
+import {UserMessageExperience} from './UserMessageExperience'
 
 export class LandingPageFactory {
   getLandingPageRestApiBaseUrl () {
@@ -14,7 +15,7 @@ export class LandingPageFactory {
   }
 
   getLandingPageProcess () {
-    return new LandingPageProcess(this.getLandingPageRestClient(), this.getLandingPageLeadRestClient(), this.getLandingPageConfigMapper())
+    return new LandingPageUserMessageProcess(this.getLandingPageRestClient(), this.getLandingPageLeadRestClient(), this.getLandingPageConfigMapper())
   }
 
   getLandingPageConfigMapper () {
@@ -23,5 +24,9 @@ export class LandingPageFactory {
 
   getLandingPageLeadRestClient () {
     return new LandingPageLeadRestClient(this.getLandingPageRestApiBaseUrl())
+  }
+
+  getUserMessageExperience () {
+    return new UserMessageExperience(UserMessageExperience.INFO_MSG_TYPE, 'Info!', '')
   }
 }
