@@ -21,6 +21,7 @@ import SimpleLeadRegisterTemplate from './SimpleLeadRegisterTemplate.vue'
 import UserMessageTemplate from './UserMessageTemplate.vue'
 export default {
   name: 'LandingPageTemplate',
+  props: ['landingPageId'],
   data: function () {
     return {
       config: {},
@@ -69,7 +70,7 @@ export default {
     this.landingPageFactory = new LandingPageFactory()
     this.landingPageProcess = this.landingPageFactory.getLandingPageProcess()
     this.userMessage = this.landingPageFactory.getUserMessageExperience()
-    this.config = this.landingPageProcess.getPageConfiguration()
+    this.config = this.landingPageProcess.getPageConfiguration(this.landingPageId)
     this.lead = this.landingPageProcess.getNewLead()
   }
 }

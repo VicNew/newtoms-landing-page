@@ -8,8 +8,17 @@ export default new Router({
   routes: [
     {
       path: '/',
+      redirect: '/landingpage/1'
+    },
+    {
+      path: '/landingpage',
+      redirect: '/landingpage/1'
+    },
+    {
+      path: '/landingpage/:landingPageId',
       name: 'IndexTemplate',
-      component: IndexTemplate
+      component: IndexTemplate,
+      props: true
     }
   ]
 })

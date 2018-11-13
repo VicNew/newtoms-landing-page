@@ -26,18 +26,18 @@ describe('Landing Page Process Test', () => {
   })
 
   it('Given Landing Page Process class when get page configuration then return a Landing Page Config instance', () => {
-    expect(landingPageProcess.getPageConfiguration()).not.toBe(null)
+    expect(landingPageProcess.getPageConfiguration(1)).not.toBe(null)
     expect(typeof landingPageProcess.getPageConfiguration().valueOf()).toEqual('object')
     expect(landingPageProcess.getPageConfiguration() instanceof LandingPageConfig).toEqual(true)
   })
 
   it('Given Landing Page Process class when get page configuration then call a rest api to get the configuration', () => {
-    expect(landingPageProcess.getPageConfiguration()).not.toBe(null)
+    expect(landingPageProcess.getPageConfiguration(1)).not.toBe(null)
     expect(landingPageRestClient.getLandingPageTemplateConfigById).toHaveBeenCalled()
   })
 
   it('Given Landing Page Process class when get page configuration then return a default Landing Page Config', () => {
-    let pageConfig = landingPageProcess.getPageConfiguration()
+    let pageConfig = landingPageProcess.getPageConfiguration(1)
     expect(pageConfig.documentId).toEqual(1)
     expect(pageConfig.documentType).toEqual('Whitepaper')
     expect(pageConfig.documentTitle).toEqual('Best practices for microservices')

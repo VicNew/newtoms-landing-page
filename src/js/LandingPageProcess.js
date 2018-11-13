@@ -9,8 +9,8 @@ export class LandingPageProcess {
     this.landingPageConfigMapper = landingPageConfigMapper
   }
 
-  getPageConfiguration () {
-    return this.transformTemplateConfigResponse(this.getLandingPageTemplateConfig())
+  getPageConfiguration (landingPageId) {
+    return this.transformTemplateConfigResponse(this.getLandingPageTemplateConfig(landingPageId))
   }
 
   getNewLead () {
@@ -40,8 +40,8 @@ export class LandingPageProcess {
     return this.getlandingPageConfigMapper().transformTemplateConfigResponse(response)
   }
 
-  getLandingPageTemplateConfig () {
-    return this.landingPageRestClient.getLandingPageTemplateConfigById(1)
+  getLandingPageTemplateConfig (landingPageId) {
+    return this.landingPageRestClient.getLandingPageTemplateConfigById(landingPageId)
   }
 
   getlandingPageConfigMapper () {
