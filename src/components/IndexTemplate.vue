@@ -3,7 +3,7 @@
       <navigation-bar-template></navigation-bar-template>
       <!-- Masthead -->
       <header class="masthead text-white text-center" v-if="!privacyPolicyData.isPrivatePolicyVisible">
-        <landing-page-template></landing-page-template>
+        <landing-page-template :landingPageId="landingPageId"></landing-page-template>
       </header>
       <section v-if="privacyPolicyData.isPrivatePolicyVisible">
           <privacyPolicyTemplate :privacyPolicyData="privacyPolicyData"></privacyPolicyTemplate>
@@ -22,6 +22,7 @@ import {LandingPageFactory} from '../js/LandingPageFactory'
 
 export default {
   name: 'IndexTemplate',
+  props: ['landingPageId'],
   data: function () {
     return {
       privacyPolicyData: {},

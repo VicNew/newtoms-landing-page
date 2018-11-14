@@ -36,4 +36,15 @@ describe('Util Class Test', () => {
   it('Given a value when check is null then return false', () => {
     expect(Util.isNull('')).toEqual(false)
   })
+
+  it('Given a valid email when check is A Valid Email then return true', () => {
+    expect(Util.isAValidEmail('victor.luna@newtoms.com')).toEqual(true)
+  })
+
+  it('Given an invalid email when check is A Valid Email then return true', () => {
+    expect(Util.isAValidEmail('victor.luna')).toEqual(false)
+    expect(Util.isAValidEmail('@newtoms.com')).toEqual(false)
+    expect(Util.isAValidEmail('victor.luna@newtoms')).toEqual(false)
+  })
+
 })

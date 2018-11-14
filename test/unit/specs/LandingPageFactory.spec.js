@@ -2,7 +2,9 @@ import {LandingPageFactory} from '@/js/LandingPageFactory'
 import {LandingPageSimpleRestClient} from '@/js/LandingPageSimpleRestClient'
 import {LandingPageLeadRestClient} from '@/js/LandingPageLeadRestClient'
 import {LandingPageProcess} from '@/js/LandingPageProcess'
+import {LandingPageUserMessageProcess} from '@/js/LandingPageUserMessageProcess'
 import {LandingPageConfigMapper} from '@/js/LandingPageConfigMapper'
+import {UserMessageExperience} from '@/js/UserMessageExperience'
 
 describe('Landing Page Factory', () => {
     var landingPageFactory = {}
@@ -38,6 +40,7 @@ describe('Landing Page Factory', () => {
         expect(landingPageFactory.getLandingPageProcess()).not.toBe(null)
         expect(landingPageFactory.getLandingPageProcess() instanceof Object).toBeTruthy()
         expect(landingPageFactory.getLandingPageProcess() instanceof LandingPageProcess).toBeTruthy()
+        expect(landingPageFactory.getLandingPageProcess() instanceof LandingPageUserMessageProcess).toBeTruthy()
     })
 
     it('Given a Landing Page Factory when get Landing Page Config Mapper class then return the right instance', () => {
@@ -82,5 +85,20 @@ describe('Landing Page Factory', () => {
         let restClient = landingPageFactorySpy.getLandingPageLeadRestClient()
         expect(restClient).not.toBe(null)
         expect(landingPageFactorySpy.getLandingPageRestApiBaseUrl).toHaveBeenCalled()
+    })
+
+    it('Given a Landing Page Factory when get User Message Experience class then return the right instance', () => {
+        expect(landingPageFactory.getUserMessageExperience()).not.toBe(null)
+        expect(landingPageFactory.getUserMessageExperience() instanceof Object).toBeTruthy()
+        expect(landingPageFactory.getUserMessageExperience() instanceof UserMessageExperience).toBeTruthy()
+    })
+    it('Given a Landing Page Factory when get User Message Experience class then return the right instance with default values', () => {
+        var userMessageExperience = landingPageFactory.getUserMessageExperience()
+        expect(userMessageExperience.messageType).toEqual(UserMessageExperience.INFO_MSG_TYPE)
+        expect(userMessageExperience.statusText).toEqual('Info!')
+        expect(userMessageExperience.description).toEqual('')
+        expect(userMessageExperience.fullDescription).toEqual('')
+        expect(userMessageExperience.showMessage).toEqual(false)
+        expect(userMessageExperience.showFullDescription).toEqual(false)
     })
 })

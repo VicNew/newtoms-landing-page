@@ -9,8 +9,8 @@ export class LandingPageProcess {
     this.landingPageConfigMapper = landingPageConfigMapper
   }
 
-  getPageConfiguration () {
-    return this.transformTemplateConfigResponse(this.getLandingPageTemplateConfig())
+  getPageConfiguration (landingPageId) {
+    return this.transformTemplateConfigResponse(this.getLandingPageTemplateConfig(landingPageId))
   }
 
   getNewLead () {
@@ -18,7 +18,7 @@ export class LandingPageProcess {
   }
 
   isLeadDataComplete (lead) {
-    return (lead != null && this.isNotEmptyValue(lead.firstName) && this.isNotEmptyValue(lead.lastName) && this.isNotEmptyValue(lead.company) && this.isNotEmptyValue(lead.title) && this.isNotEmptyValue(lead.email))
+    return (lead != null && this.isNotEmptyValue(lead.firstName) && this.isNotEmptyValue(lead.lastName) && this.isNotEmptyValue(lead.company) && this.isNotEmptyValue(lead.title) && this.isValidEmail(lead.email))
   }
 
   submitLeadData (lead) {
@@ -32,12 +32,16 @@ export class LandingPageProcess {
     return !Util.isEmptyString(value)
   }
 
+  isValidEmail (email) {
+    return (this.isNotEmptyValue(email) && Util.isAValidEmail(email))
+  }
+
   transformTemplateConfigResponse (response) {
     return this.getlandingPageConfigMapper().transformTemplateConfigResponse(response)
   }
 
-  getLandingPageTemplateConfig () {
-    return this.landingPageRestClient.getLandingPageTemplateConfigById(1)
+  getLandingPageTemplateConfig (landingPageId) {
+    return this.landingPageRestClient.getLandingPageTemplateConfigById(landingPageId)
   }
 
   getlandingPageConfigMapper () {
